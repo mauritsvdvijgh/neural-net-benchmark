@@ -1,0 +1,17 @@
+paho-mqtt
+scikit-learn==0.22.1
+jsonschema==3.2.0
+## The following requirements were added by pip freeze:
+asn1crypto==0.24.0
+cryptography==2.6.1
+entrypoints==0.3
+joblib==0.14.1
+keyring==17.1.1
+keyrings.alt==3.1.1
+numpy==1.18.1
+pycrypto==2.6.1
+PyGObject==3.30.4
+pyxdg==0.25
+scipy==1.4.1
+SecretStorage==2.3.1
+six==1.12.0

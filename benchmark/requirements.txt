@@ -1,0 +1,6 @@
+ujson
+paho-mqtt
+pycurl
+requests
+httpx
+numpy

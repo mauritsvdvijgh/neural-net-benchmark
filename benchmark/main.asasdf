@@ -1,0 +1,46 @@
+from argparse import ArgumentParser
+import logging
+import json
+import time
+import paho.mqtt.client as mqtt
+
+
+AVAILABLE_FRAMEWORKS = [
+    'scikit',
+#    'tensorflow',
+#    'cntk',
+#    'theano',
+#    'mxnet',
+#    'pytorch',
+]
+
+mqtt_client = mqtt.Client()
+mqtt_client.connect('broker', 1883)
+
+if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument(
+        '--frameworks',
+        dest='selected_frameworks',
+        default=AVAILABLE_FRAMEWORKS,
+        help='frameworks to benchmark'
+    )
+    args = parser.parse_args()
+
+    for framework in args.selected_frameworks:
+        start = time.time()
+        data = {
+            'samples': [[2,2,2,2]],
+            'labels': [ 7],
+        }
+        post_data = json.dumps(data)
+        msg_info = []
+        for a in range(10000):
+            msg_info.append(mqtt_client.publish('{}/train'.format(framework), post_data, qos=0))
+
+
+        mqtt_client.disconnect()
+
+        end = time.time()
+        print(framework, end - start)
+
