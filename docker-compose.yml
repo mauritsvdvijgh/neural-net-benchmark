@@ -1,9 +1,16 @@
 version: '2'
 services:
+  post-process:
+    build:
+      context: docker/util
+      dockerfile: ../python-dockerfile
+    entrypoint: python3
+    volumes:
+      - ./util:/usr/src/app
+    links:
+      - orca
   orca:
     image: quay.io/plotly/orca
-    ports:
-      - 9091:9091
   download:
     build:
       context: docker/util

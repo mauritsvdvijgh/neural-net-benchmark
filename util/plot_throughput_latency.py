@@ -8,7 +8,7 @@ import plotly
 import plotly.graph_objects as go
 
 
-plotly.io.orca.config.server_url = "localhost:9091"
+plotly.io.orca.config.server_url = "orca:9091"
 first = True
 framework = None
 fig = go.Figure()

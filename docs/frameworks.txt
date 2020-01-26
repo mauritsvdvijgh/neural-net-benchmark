@@ -1,3 +1,13 @@
+# implemented/used
+x CNTK
+x Keras
+x MXNet
+x Pytorch (old version: Torch)
+x Tensorflow
+x Theano
+x scikit-learn
+
+# not used
 - neural-redis
 - Apache SINGA
 - BigDL
@@ -8,19 +18,10 @@
 - Intel Data Analytics Acceleration Library
 - OpenNN
 - PlaidML
-x CNTK
-x Keras
-x MXNet
-x Pytorch (old version: Torch)
-x Tensorflow
-x Theano
-x scikit-learn
-~ shogun
-~ vowpalwabbit
-~ mlpack
-~ pymvpa
-
-
+- shogun
+- vowpalwabbit
+- mlpack
+- pymvpa
 - madlib
 - libol
 - flinkml
