@@ -1,0 +1,32 @@
+FROM python:3.6.10-buster
+
+RUN apt-get update \
+    && apt-get install -y \
+        build-essential \
+        pkg-config \
+        libcairo2-dev \
+        openmpi-bin \
+        libopenmpi-dev \
+        libgirepository1.0-dev \
+        libopenblas-dev \
+        gfortran \
+        liblapack-dev \
+        cmake \
+        libboost-dev \
+        libboost-program-options-dev \
+        libboost-system-dev \
+        libboost-thread-dev \
+        libboost-math-dev \
+        libboost-test-dev \
+        libboost-python-dev \
+        zlib1g-dev \
+    && ln -s /usr/lib/x86_64-linux-gnu/libmpi.so /usr/lib/x86_64-linux-gnu/libmpi.so.12 \
+    && ln /usr/lib/x86_64-linux-gnu/libmpi_cxx.so /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+
+ENTRYPOINT ["python3", "main.py"]

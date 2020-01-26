@@ -1,0 +1,78 @@
+version: '2'
+services:
+  orca:
+    image: quay.io/plotly/orca
+    ports:
+      - 9091:9091
+  download:
+    build:
+      context: docker/util
+      dockerfile: ../python-dockerfile
+    command: python3 /usr/src/app/download.py
+    working_dir: /data
+    volumes:
+      - ./util:/usr/src/app
+      - ./data:/data
+  scikit:
+    build:
+      context: docker/scikit
+      dockerfile: ../python-dockerfile
+    volumes:
+      - ./benchmark:/usr/src/app
+      - ./data:/data
+    environment:
+      - FRAMEWORK=scikit
+  pytorch:
+    build:
+      context: docker/pytorch
+      dockerfile: ../python-dockerfile
+    volumes:
+      - ./benchmark:/usr/src/app
+      - ./data:/data
+    environment:
+      - FRAMEWORK=pytorch
+  tensorflow:
+    build:
+      context: docker/tensorflow
+      dockerfile: ../python-dockerfile
+    volumes:
+      - ./benchmark:/usr/src/app
+      - ./data:/data
+    environment:
+      - KERAS_BACKEND=tensorflow
+      - FRAMEWORK=keras
+      - TF_CPP_MIN_LOG_LEVEL=3
+  cntk:
+    build:
+      context: docker/cntk
+      dockerfile: ../python-dockerfile
+    volumes:
+      - ./benchmark:/usr/src/app
+      - ./data:/data
+    environment:
+      - KERAS_BACKEND=cntk
+      - FRAMEWORK=keras
+  theano:
+    build:
+      context: docker/theano
+      dockerfile: ../python-dockerfile
+    volumes:
+      - ./benchmark:/usr/src/app
+      - ./data:/data
+    environment:
+      - KERAS_BACKEND=theano
+      - FRAMEWORK=keras
+      - OMP_NUM_THREADS=4
+      - OPENBLAS_NUM_THREADS=4
+      - GOTO_NUM_THREADS=4
+      - THEANO_FLAGS=blas.ldflags=-lblas,floatX=float32,openmp=True
+  mxnet:
+    build:
+      context: docker/mxnet
+      dockerfile: ../python-dockerfile
+    volumes:
+      - ./benchmark:/usr/src/app
+      - ./data:/data
+    environment:
+      - KERAS_BACKEND=mxnet
+      - FRAMEWORK=keras

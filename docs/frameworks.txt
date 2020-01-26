@@ -1,0 +1,26 @@
+- neural-redis
+- Apache SINGA
+- BigDL
+- Caffe
+- Chainer
+- Deeplearning4j
+- Dlib
+- Intel Data Analytics Acceleration Library
+- OpenNN
+- PlaidML
+x CNTK
+x Keras
+x MXNet
+x Pytorch (old version: Torch)
+x Tensorflow
+x Theano
+x scikit-learn
+~ shogun
+~ vowpalwabbit
+~ mlpack
+~ pymvpa
+
+
+- madlib
+- libol
+- flinkml
