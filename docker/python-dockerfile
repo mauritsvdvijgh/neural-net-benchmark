@@ -21,15 +21,12 @@ RUN apt-get update \
         libboost-python-dev \
         zlib1g-dev \
     && ln -s /usr/lib/x86_64-linux-gnu/libmpi.so /usr/lib/x86_64-linux-gnu/libmpi.so.12 \
-    && ln /usr/lib/x86_64-linux-gnu/libmpi_cxx.so /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1 \
-    && pip3 install cython \
-    && pip3 install --no-binary :all: falcon \
-    && pip3 install celery[redis] \
-    && pip3 install uwsgi jsonschema==3.2.0
+    && ln /usr/lib/x86_64-linux-gnu/libmpi_cxx.so /usr/lib/x86_64-linux-gnu/libmpi_cxx.so.1
 
 WORKDIR /usr/src/app
 
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-CMD ["uwsgi", "--add-header=Connection: Keep-Alive", "--http=:8000", "--http-keepalive", "-w", "main:app"]
+
+ENTRYPOINT ["python3", "main.py"]

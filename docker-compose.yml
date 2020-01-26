@@ -1,29 +1,42 @@
 version: '2'
 services:
+  orca:
+    image: quay.io/plotly/orca
+    ports:
+      - 9091:9091
+  download:
+    build:
+      context: docker/util
+      dockerfile: ../python-dockerfile
+    command: python3 /usr/src/app/download.py
+    working_dir: /data
+    volumes:
+      - ./util:/usr/src/app
+      - ./data:/data
   scikit:
     build:
-      context: ./scikit
-      dockerfile: ../docker/python-dockerfile
+      context: docker/scikit
+      dockerfile: ../python-dockerfile
     volumes:
-      - ./super:/usr/src/app
+      - ./benchmark:/usr/src/app
       - ./data:/data
     environment:
       - FRAMEWORK=scikit
   pytorch:
     build:
-      context: ./pytorch
-      dockerfile: ../docker/python-dockerfile
+      context: docker/pytorch
+      dockerfile: ../python-dockerfile
     volumes:
-      - ./super:/usr/src/app
+      - ./benchmark:/usr/src/app
       - ./data:/data
     environment:
       - FRAMEWORK=pytorch
   tensorflow:
     build:
-      context: ./tensorflow
-      dockerfile: ../docker/python-dockerfile
+      context: docker/tensorflow
+      dockerfile: ../python-dockerfile
     volumes:
-      - ./super:/usr/src/app
+      - ./benchmark:/usr/src/app
       - ./data:/data
     environment:
       - KERAS_BACKEND=tensorflow
@@ -31,20 +44,20 @@ services:
       - TF_CPP_MIN_LOG_LEVEL=3
   cntk:
     build:
-      context: ./cntk
-      dockerfile: ../docker/python-dockerfile
+      context: docker/cntk
+      dockerfile: ../python-dockerfile
     volumes:
-      - ./super:/usr/src/app
+      - ./benchmark:/usr/src/app
       - ./data:/data
     environment:
       - KERAS_BACKEND=cntk
       - FRAMEWORK=keras
   theano:
     build:
-      context: ./theano
-      dockerfile: ../docker/python-dockerfile
+      context: docker/theano
+      dockerfile: ../python-dockerfile
     volumes:
-      - ./super:/usr/src/app
+      - ./benchmark:/usr/src/app
       - ./data:/data
     environment:
       - KERAS_BACKEND=theano
@@ -55,28 +68,11 @@ services:
       - THEANO_FLAGS=blas.ldflags=-lblas,floatX=float32,openmp=True
   mxnet:
     build:
-      context: ./mxnet
-      dockerfile: ../docker/python-dockerfile
+      context: docker/mxnet
+      dockerfile: ../python-dockerfile
     volumes:
-      - ./super:/usr/src/app
+      - ./benchmark:/usr/src/app
       - ./data:/data
     environment:
       - KERAS_BACKEND=mxnet
       - FRAMEWORK=keras
-  mlpack:
-    build:
-      context: ./mlpack
-      dockerfile: ../docker/python-dockerfile
-    volumes:
-      - ./mlpack:/usr/src/app
-      - ./data:/data
-    environment:
-      - FRAMEWORK=mlpack
-  benchmark:
-    build:
-      context: ./benchmark
-      dockerfile: ../docker/python-dockerfile
-    volumes:
-      - ./benchmark:/usr/src/app
-      - ./data:/data
-    command: 'python3 -u main.py'
