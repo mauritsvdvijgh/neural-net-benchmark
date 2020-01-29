@@ -80,6 +80,7 @@ def run_benchmark_direct(data, epochs=1, batch_size=60000):
     x_train, y_train, x_test, y_test = data
     init((200, 200), [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 784, min(200, batch_size))
     stats = {
+        "samples_in_dataset": len(x_train),
         "batch_size": batch_size,
         "framework": os.environ.get(
             "KERAS_BACKEND", os.environ.get("FRAMEWORK", "scikit")

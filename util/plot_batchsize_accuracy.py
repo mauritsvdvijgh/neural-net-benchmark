@@ -13,6 +13,7 @@ first = True
 framework = None
 fig = go.Figure()
 x, y, point_labels = [], [], []
+batch_sizes = set()
 for line in fileinput.input():
     data = json.loads(line)
 
@@ -23,6 +24,7 @@ for line in fileinput.input():
     ]
 
     batch_size = data["batch_size"]
+    batch_sizes.add(batch_size)
     epochs = len(data["epochs"])
     total_time = sum(times)
     points_per_second = (epochs*60000) / total_time
@@ -32,37 +34,33 @@ for line in fileinput.input():
     if data["framework"] != framework:
         if framework:
             fig.add_trace(
-                go.Scatter(
+                go.Bar(
                     x=x,
                     y=y,
                     text=point_labels,
-                    mode="markers",
-                    marker=dict(size=12),
                     name=framework,
                 )
             )
             x, y, point_labels = [], [], []
         framework = data["framework"]
 
-    x.append(points_per_second)
-    y.append(1000 * latency)
+    x.append(batch_size)
+    y.append(accuracy)
     point_labels.append(f"acc: {accuracy} | batch size: {batch_size}")
 
 fig.add_trace(
-    go.Scatter(
+    go.Bar(
         x=x,
         y=y,
         text=point_labels,
-        mode="markers",
-        marker=dict(size=12),
         name=framework,
     )
 )
 
 fig.update_layout(
     font=dict(size=18),
-    yaxis=dict(title="Latency (ms)"),
-    xaxis=dict(title="Training speed (samples/sec)"),
+    yaxis=dict(title="Accuracy"),
+    xaxis=dict(title="Batch size", type='category', categoryorder='array', categoryarray=sorted(batch_sizes)),
 )
 
 if not os.isatty(sys.stdout.fileno()):
