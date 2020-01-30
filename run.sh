@@ -16,6 +16,8 @@ mkdir $OUTPUT_DIR/predict
 mkdir $OUTPUT_DIR/batch
 mkdir $OUTPUT_DIR/single
 
+echo "building docker container images"
+docker-compose build -q
 
 echo "running single datapoint prediction benchmark"
 for FRAMEWORK in $FRAMEWORKS

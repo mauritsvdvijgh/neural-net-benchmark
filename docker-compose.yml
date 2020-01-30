@@ -15,7 +15,8 @@ services:
     build:
       context: docker/util
       dockerfile: ../python-dockerfile
-    command: python3 /usr/src/app/download.py
+    entrypoint: python3
+    command: /usr/src/app/download.py
     working_dir: /data
     volumes:
       - ./util:/usr/src/app
