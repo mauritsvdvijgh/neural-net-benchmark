@@ -1,7 +1,7 @@
 scikit-learn==0.22.1
 ## The following requirements were added by pip freeze:
 asn1crypto==0.24.0
-cryptography==2.6.1
+cryptography==3.2
 entrypoints==0.3
 joblib==0.14.1
 keyring==17.1.1
