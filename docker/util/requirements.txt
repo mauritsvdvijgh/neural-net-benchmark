@@ -1,6 +1,6 @@
 plotly==4.5.0
 psutil==5.6.7
-numpy==1.18.1
+numpy==1.22.0
 requests==2.22.0
 ## The following requirements were added by pip freeze:
 certifi==2019.11.28
