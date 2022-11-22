@@ -7,7 +7,7 @@ entrypoints==0.3
 keyring==17.1.1
 keyrings.alt==3.1.1
 numpy==1.18.1
-Pillow==7.0.0
+Pillow==9.3.0
 pycrypto==2.6.1
 PyGObject==3.30.4
 pyxdg==0.25
